@@ -25,7 +25,8 @@ $oNet2Client = new \Gyron\Net2Web\Client( $oNet2Session );
 ```
   
 This will get you connected immediately, however it will create a new Net2Web session for **every request**.  
-It is recommended that you use `$oNet2Session->getSessionId()`, and cache this somewhere (for up to 2 to 4 hours). This can then be reused by passing the Session ID back into the Session instance: `new Session( ..., ..., ..., '7070', $sessionId );`
+It is recommended that you use `$oNet2Session->getSessionId()`, and cache this somewhere (for up to 2 to 4 hours). This can then be reused by passing the Session ID back into the Session instance:  
+`new Session( ..., ..., ..., ..., $oEncryption $sessionId );`
 
 ### Advanced Implementation
 Following is a sample implementation of the library in the form of a service factory which utilises caching of the session ID to local storage.
@@ -44,37 +45,37 @@ use Gyron\Net2Web\Session;
  */
 class AccessApiFactory {
 
-    /**
-     * @var string
-     */
-    private $sCachePath;
+  /**
+   * @var string
+   */
+  private $sCachePath;
 
-    /**
-     * @param string $sCachePath
-     */
-    public function __construct( string $sCachePath ) {
-        $this->sCachePath = $sCachePath;
+  /**
+   * @param string $sCachePath
+   */
+  public function __construct( string $sCachePath ) {
+    $this->sCachePath = $sCachePath;
+  }
+
+  /**
+   * @param array $aConfig requires user_id, password, ip and port
+   * @return Client
+   * @throws \Exception
+   */
+  public function forConfig( array $aConfig ) {
+    $sCacheFile = sprintf( '%s/net2web_session.sid', rtrim( $this->sCachePath, '/' ) );
+
+    $sSessionId = null;
+    if ( is_file( $sCacheFile ) ) {
+      $sSessionId = trim( file_get_contents( $sCacheFile ) );
     }
-
-    /**
-     * @param array $aConfig requires user_id, password, ip and port
-     * @return Client
-     * @throws \Exception
-     */
-    public function forConfig( array $aConfig ) {
-        $sCacheFile = sprintf( '%s/net2web_session.sid', rtrim( $this->sCachePath, '/' ) );
-
-        $sSessionId = null;
-        if ( is_file( $sCacheFile ) ) {
-            $sSessionId = trim( file_get_contents( $sCacheFile ) );
-        }
         
-		$oNet2Encryption = new Encryption( '1234567890123456', Encryption::OpenSSL );
-        $oNet2Session = new Session( $aConfig['user_id'], $aConfig['password'], $aConfig['ip'], (string)$aConfig['port'], $oNet2Encryption, $sSessionId );
-        if ( $sSessionId != $oNet2Session->getSessionId() ) {
-            file_put_contents( $sCacheFile, trim( $oNet2Session->getSessionId() ) );
-        }
-        return ( new Client( oNet2Session ) );
+    $oNet2Encryption = new Encryption( '1234567890123456', Encryption::OpenSSL );
+    $oNet2Session = new Session( $aConfig['user_id'], $aConfig['password'], $aConfig['ip'], (string)$aConfig['port'], $oNet2Encryption, $sSessionId );
+    if ( $sSessionId != $oNet2Session->getSessionId() ) {
+      file_put_contents( $sCacheFile, trim( $oNet2Session->getSessionId() ) );
     }
+    return ( new Client( oNet2Session ) );
+  }
 }
 ```
