@@ -1,0 +1,26 @@
+{
+  "name": "gyron/net2web",
+  "type": "library",
+  "description": "Net2Web Client Library",
+  "keywords": [ "php", "net2web", "paxton", "net2", "api", "api-client" ],
+  "homepage": "http://www.gyron.net",
+  "license": "MIT",
+  "authors": [
+	{
+	  "name": "Dave Goodchild",
+	  "email": "dave.goodchild@gyron.net"
+	}
+  ],
+  "require": {
+	"php": ">=7.1"
+  },
+  "autoload": {
+	"psr-4": {
+	  "Gyron\\": "src/"
+	},
+	"exclude-from-classmap": [
+	  "/Tests/"
+	]
+  },
+  "minimum-stability": "dev"
+}
