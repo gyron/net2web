@@ -1,12 +1,12 @@
 <?php declare( strict_types=1 );
 
-namespace Gyron\Object;
+namespace Gyron\Net2Web\Object;
 
 /**
- * Class Department
- * @package Gyron\Object
+ * Class Card
+ * @package Gyron\Net2Web\Object
  */
-class Department {
+class Card {
 
 	/**
 	 * @var array
@@ -24,12 +24,14 @@ class Department {
 
 	/**
 	 * @param \SimpleXMLElement $oXml
-	 * @return Department
+	 * @return Card
 	 */
-	public function fromXml( \SimpleXMLElement $oXml ): Department {
+	public function fromXml( \SimpleXMLElement $oXml ): Card {
 		$this->aData = array(
-			'departmentid' => (string)($oXml->DepartmentID),
-      		'name' => (string)($oXml->Name)
+			'userid' => (string)($oXml->UserID),
+			'cardnumber' => (string)($oXml->CardNumber),
+			'lostcard' => (string)($oXml->LostCard),
+			'cardtypeid' => (string)($oXml->CardTypeID)
 		);
 		return $this;
 	}

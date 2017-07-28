@@ -1,19 +1,19 @@
 <?php declare( strict_types=1 );
 
-namespace Gyron;
+namespace Gyron\Net2Web;
 
-use Gyron\Object\AccessLevel;
-use Gyron\Object\Area;
-use Gyron\Object\Card;
-use Gyron\Object\CardType;
-use Gyron\Object\Department;
-use Gyron\Object\Event;
-use Gyron\Object\Operator;
-use Gyron\Object\User;
+use Gyron\Net2Web\Object\AccessLevel;
+use Gyron\Net2Web\Object\Area;
+use Gyron\Net2Web\Object\Card;
+use Gyron\Net2Web\Object\CardType;
+use Gyron\Net2Web\Object\Department;
+use Gyron\Net2Web\Object\Event;
+use Gyron\Net2Web\Object\Operator;
+use Gyron\Net2Web\Object\User;
 
 /**
  * Class Client
- * @package Gyron
+ * @package Gyron\Net2Web
  */
 class Client {
 

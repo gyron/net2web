@@ -1,12 +1,12 @@
 <?php declare( strict_types=1 );
 
-namespace Gyron\Object;
+namespace Gyron\Net2Web\Object;
 
 /**
- * Class Operator
- * @package Gyron\Object
+ * Class Department
+ * @package Gyron\Net2Web\Object
  */
-class Operator {
+class Department {
 
 	/**
 	 * @var array
@@ -24,13 +24,12 @@ class Operator {
 
 	/**
 	 * @param \SimpleXMLElement $oXml
-	 * @return Operator
+	 * @return Department
 	 */
-	public function fromXml( \SimpleXMLElement $oXml ): Operator {
+	public function fromXml( \SimpleXMLElement $oXml ): Department {
 		$this->aData = array(
-			'userid' => (string)($oXml->UserID),
-			'surname' => (string)($oXml->Surname),
-			'displaynmae' => (string)($oXml->DisplayName)
+			'departmentid' => (string)($oXml->DepartmentID),
+      		'name' => (string)($oXml->Name)
 		);
 		return $this;
 	}

@@ -1,10 +1,10 @@
 <?php declare( strict_types=1 );
 
-namespace Gyron;
+namespace Gyron\Net2Web;
 
 /**
  * Class Encryption
- * @package Gyron
+ * @package Gyron\Net2Web
  */
 class Encryption {
 	const Mcrypt = 1;
@@ -15,7 +15,7 @@ class Encryption {
 
 /**
  * Trait Request
- * @package Gyron
+ * @package Gyron\Net2Web
  */
 trait Request {
 

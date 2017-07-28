@@ -1,12 +1,12 @@
 <?php declare( strict_types=1 );
 
-namespace Gyron\Object;
+namespace Gyron\Net2Web\Object;
 
 /**
- * Class Card
- * @package Gyron\Object
+ * Class Area
+ * @package Gyron\Net2Web\Object
  */
-class Card {
+class Area {
 
 	/**
 	 * @var array
@@ -24,14 +24,13 @@ class Card {
 
 	/**
 	 * @param \SimpleXMLElement $oXml
-	 * @return Card
+	 * @return Area
 	 */
-	public function fromXml( \SimpleXMLElement $oXml ): Card {
+	public function fromXml( \SimpleXMLElement $oXml ): Area {
 		$this->aData = array(
-			'userid' => (string)($oXml->UserID),
-			'cardnumber' => (string)($oXml->CardNumber),
-			'lostcard' => (string)($oXml->LostCard),
-			'cardtypeid' => (string)($oXml->CardTypeID)
+			'areaid' => (string)($oXml->AreaID),
+			'areaname' => (string)($oXml->AreaName),
+			'timezoneid' => (string)($oXml->SelectedTimezoneID)
 		);
 		return $this;
 	}

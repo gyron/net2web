@@ -1,10 +1,10 @@
 <?php declare( strict_types=1 );
 
-namespace Gyron;
+namespace Gyron\Net2Web;
 
 /**
  * Class Session
- * @package Gyron
+ * @package Gyron\Net2Web
  */
 class Session {
 

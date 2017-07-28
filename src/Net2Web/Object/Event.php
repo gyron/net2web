@@ -1,10 +1,10 @@
 <?php declare( strict_types=1 );
 
-namespace Gyron\Object;
+namespace Gyron\Net2Web\Object;
 
 /**
  * Class Event
- * @package Gyron\Object
+ * @package Gyron\Net2Web\Object
  */
 class Event {
 

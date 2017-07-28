@@ -1,12 +1,12 @@
 <?php declare( strict_types=1 );
 
-namespace Gyron\Object;
+namespace Gyron\Net2Web\Object;
 
 /**
- * Class CardType
- * @package Gyron\Object
+ * Class Operator
+ * @package Gyron\Net2Web\Object
  */
-class CardType {
+class Operator {
 
 	/**
 	 * @var array
@@ -24,12 +24,13 @@ class CardType {
 
 	/**
 	 * @param \SimpleXMLElement $oXml
-	 * @return CardType
+	 * @return Operator
 	 */
-	public function fromXml( \SimpleXMLElement $oXml ): CardType {
+	public function fromXml( \SimpleXMLElement $oXml ): Operator {
 		$this->aData = array(
-			'cardtypeid' => (string)($oXml->CardTypeID),
-			'name' => (string)($oXml->Name)
+			'userid' => (string)($oXml->UserID),
+			'surname' => (string)($oXml->Surname),
+			'displaynmae' => (string)($oXml->DisplayName)
 		);
 		return $this;
 	}
