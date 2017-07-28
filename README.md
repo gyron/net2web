@@ -71,7 +71,7 @@ class AccessApiFactory {
 		if ( $sSessionId != $oNet2Session->getSessionId() ) {
 			file_put_contents( $sCacheFile, trim( $oNet2Session->getSessionId() ) );
 		}
-    return ( new Client( oNet2Session ) );
+		return ( new Client( oNet2Session ) );
 	}
 }
 ```
