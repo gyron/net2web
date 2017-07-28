@@ -6,27 +6,13 @@ namespace Gyron\Net2Web\Object;
  * Class CardType
  * @package Gyron\Net2Web\Object
  */
-class CardType {
-
-	/**
-	 * @var array
-	 */
-	protected $aData = array();
-
-	/**
-	 * @param \SimpleXMLElement $oXml
-	 */
-	public function __construct( ?\SimpleXMLElement $oXml = null ) {
-		if ( $oXml ) {
-			$this->fromXml( $oXml );
-		}
-	}
+class CardType extends AbstractObject {
 
 	/**
 	 * @param \SimpleXMLElement $oXml
 	 * @return CardType
 	 */
-	public function fromXml( \SimpleXMLElement $oXml ): CardType {
+	public function fromXml( \SimpleXMLElement $oXml ) {
 		$this->aData = array(
 			'cardtypeid' => (string)($oXml->CardTypeID),
 			'name' => (string)($oXml->Name)

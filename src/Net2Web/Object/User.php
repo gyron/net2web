@@ -6,12 +6,7 @@ namespace Gyron\Net2Web\Object;
  * Class User
  * @package Gyron\Net2Web\Object
  */
-class User {
-
-	/**
-	 * @var array
-	 */
-	protected $aData = array();
+class User extends AbstractObject {
 
 	/**
 	 * @var array
@@ -25,37 +20,9 @@ class User {
 
 	/**
 	 * @param \SimpleXMLElement $oXml
+	 * @return User
 	 */
-	public function __construct( ?\SimpleXMLElement $oXml = null ) {
-		if ( $oXml ) {
-			$this->fromXml( $oXml );
-		}
-	}
-
-	/**
-	 * @param string $sKey
-	 * @return mixed
-	 */
-	public function __get( $sKey ) {
-		if ( isset( $this->aData[$sKey] ) ) {
-			return $this->aData[$sKey];
-		}
-		// todo: consider exception
-		return null;
-	}
-
-	/**
-	 * @param string $sKey
-	 * @param mixed $mValue
-	 */
-	public function __set( $sKey, $mValue ) {
-		if ( isset( $this->aData[$sKey] ) ) {
-			$this->aData[$sKey] = $mValue;
-		}
-		// todo: consider exception
-	}
-
-	public function fromXml( \SimpleXMLElement $oXml ): User {
+	public function fromXml( \SimpleXMLElement $oXml ) {
 		$this->nUserId = (int)( (string)$oXml->UserID );
 
 		$this->aData = array(
@@ -109,13 +76,6 @@ class User {
 			'lastarea' => (string)$oXml->LastArea
 		);
 		return $this;
-	}
-
-	/**
-	 * @return array
-	 */
-	public function getData(): array {
-		return $this->aData;
 	}
 
 	/**

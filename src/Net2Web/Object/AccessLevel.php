@@ -6,38 +6,17 @@ namespace Gyron\Net2Web\Object;
  * Class AccessLevel
  * @package Gyron\Net2Web\Object
  */
-class AccessLevel {
-
-	/**
-	 * @var array
-	 */
-	protected $aData = array();
-
-	/**
-	 * @param \SimpleXMLElement $oXml
-	 */
-	public function __construct( ?\SimpleXMLElement $oXml = null ) {
-		if ( $oXml ) {
-			$this->fromXml( $oXml );
-		}
-	}
+class AccessLevel extends AbstractObject {
 
 	/**
 	 * @param \SimpleXMLElement $oXml
 	 * @return AccessLevel
 	 */
-	public function fromXml( \SimpleXMLElement $oXml ): AccessLevel {
+	public function fromXml( \SimpleXMLElement $oXml ) {
 		$this->aData = array(
 			'accesslevelid' => (string)($oXml->AccessLevelID),
 			'name' => (string)($oXml->Name ?? $oXml->AccessLevelName)
 		);
 		return $this;
-	}
-
-	/**
-	 * @return array
-	 */
-	public function getData(): array {
-		return $this->aData;
 	}
 }

@@ -37,10 +37,13 @@ class Session {
 	 * @param string $sPassword
 	 * @param string $sIp
 	 * @param string $sPort
+	 * @param Encryption $oEncryption
 	 * @param string $sSessionId
 	 * @throws \Exception
 	 */
-	public function __construct( string $sUsername, string $sPassword, string $sIp, string $sPort, ?string $sSessionId = null ) {
+	public function __construct( string $sUsername, string $sPassword, string $sIp, string $sPort, Encryption $oEncryption, ?string $sSessionId = null ) {
+		$this->oEncryption = $oEncryption;
+
 		$this->sUsername = $sUsername;
 		$this->sPassword = $sPassword;
 		$this->sUrl = sprintf( 'http://%s:%s/oemclient.xml', $sIp, $sPort );

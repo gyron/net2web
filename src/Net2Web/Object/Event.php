@@ -6,27 +6,13 @@ namespace Gyron\Net2Web\Object;
  * Class Event
  * @package Gyron\Net2Web\Object
  */
-class Event {
-
-	/**
-	 * @var array
-	 */
-	protected $aData = array();
-
-	/**
-	 * @param \SimpleXMLElement $oXml
-	 */
-	public function __construct( ?\SimpleXMLElement $oXml = null ) {
-		if ( $oXml ) {
-			$this->fromXml( $oXml );
-		}
-	}
+class Event extends AbstractObject {
 
 	/**
 	 * @param \SimpleXMLElement $oXml
 	 * @return Event
 	 */
-	public function fromXml( \SimpleXMLElement $oXml ): Event {
+	public function fromXml( \SimpleXMLElement $oXml ) {
 		$this->aData = array(
         	'eventid' => (string)($oXml->EventID),
 			'eventdatetime' => (string)($oXml->EventDateTime),
@@ -51,12 +37,5 @@ class Event {
 			'devicedeleted' => (string)($oXml->DeviceDeleted)
 		);
 		return $this;
-	}
-
-	/**
-	 * @return array
-	 */
-	public function getData(): array {
-		return $this->aData;
 	}
 }

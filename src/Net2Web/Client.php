@@ -31,6 +31,7 @@ class Client {
 	 */
 	public function __construct( Session $oSession ) {
 		$this->oSession = $oSession;
+		$this->oEncryption = $oSession->getEncryption();
 	}
 
 	/**

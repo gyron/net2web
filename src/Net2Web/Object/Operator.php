@@ -6,31 +6,17 @@ namespace Gyron\Net2Web\Object;
  * Class Operator
  * @package Gyron\Net2Web\Object
  */
-class Operator {
-
-	/**
-	 * @var array
-	 */
-	protected $aData = array();
-
-	/**
-	 * @param \SimpleXMLElement $oXml
-	 */
-	public function __construct( ?\SimpleXMLElement $oXml = null ) {
-		if ( $oXml ) {
-			$this->fromXml( $oXml );
-		}
-	}
+class Operator extends AbstractObject {
 
 	/**
 	 * @param \SimpleXMLElement $oXml
 	 * @return Operator
 	 */
-	public function fromXml( \SimpleXMLElement $oXml ): Operator {
+	public function fromXml( \SimpleXMLElement $oXml ) {
 		$this->aData = array(
 			'userid' => (string)($oXml->UserID),
 			'surname' => (string)($oXml->Surname),
-			'displaynmae' => (string)($oXml->DisplayName)
+			'displayname' => (string)($oXml->DisplayName)
 		);
 		return $this;
 	}

@@ -19,7 +19,8 @@ Alternatively you can update the `"require": {` section in your `composer.json` 
 ### Quick Start
 Simply copy and paste the following code, and adjust the values:
 ```
-$oNet2Session = new \Gyron\Net2Web\Session( 'USERID', 'PASSWORD', 'NET2 SERVER IP', '7070' );
+$oNet2Encryption = new \Gyron\Net2Web\Encryption( '1234567890123456', \Gyron\Net2Web\Encryption::OpenSSL );
+$oNet2Session = new \Gyron\Net2Web\Session( 'USERID', 'PASSWORD', 'NET2 SERVER IP', '7070', $oNet2Encryption );
 $oNet2Client = new \Gyron\Net2Web\Client( $oNet2Session );
 ```
   
@@ -34,6 +35,7 @@ Following is a sample implementation of the library in the form of a service fac
 namespace Gyron\Sample;
 
 use Gyron\Net2Web\Client;
+use Gyron\Net2Web\Encryption;
 use Gyron\Net2Web\Session;
 
 /**
@@ -66,8 +68,9 @@ class AccessApiFactory {
         if ( is_file( $sCacheFile ) ) {
             $sSessionId = trim( file_get_contents( $sCacheFile ) );
         }
-
-        $oNet2Session = new Session( $aConfig['user_id'], $aConfig['password'], $aConfig['ip'], (string)$aConfig['port'], $sSessionId );
+        
+		$oNet2Encryption = new Encryption( '1234567890123456', Encryption::OpenSSL );
+        $oNet2Session = new Session( $aConfig['user_id'], $aConfig['password'], $aConfig['ip'], (string)$aConfig['port'], $oNet2Encryption, $sSessionId );
         if ( $sSessionId != $oNet2Session->getSessionId() ) {
             file_put_contents( $sCacheFile, trim( $oNet2Session->getSessionId() ) );
         }
