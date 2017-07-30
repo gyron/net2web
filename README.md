@@ -1,6 +1,10 @@
 # net2web
-PHP client library for Net2Web
+PHP client library for [Net2Web](http://akostyra.net/index.php/net2web.html).
 
+## About
+Net2, by [Paxton](https://www.paxton.co.uk), is an access control systems developer and provider. Their software run on windows and does have an SDK (in .NET), however it does not have a remotely accessible API. Net2Web runs alongside Net2 and exposes ~90% of the SDK functionality as an XML web accessible API.
+
+This library aims to simply integration with the Net2Web exposed API.
 
 ## Installation Instructions
 ### Composer
