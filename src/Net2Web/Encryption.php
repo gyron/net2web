@@ -36,6 +36,15 @@ class Encryption {
 	}
 
 	/**
+	 * @param int $nMethod
+	 * @return Encryption
+	 */
+	public function changeEncryptionMethod( int $nMethod ): Encryption {
+		$this->nMethod = $nMethod;
+		return $this;
+	}
+
+	/**
 	 * @param string $sData
 	 * @return string
 	 */
