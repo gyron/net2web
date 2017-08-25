@@ -53,7 +53,8 @@ class Session {
 			$this->sSessionId = $sSessionId;
 
 			$oXmlResult = $this->send( 'serverhostname' );//serverhostname, lasterrormessage
-			if ( !isset( $oXmlResult->item->value ) || strpos( (string)$oXmlResult->item->value, 'error' ) != false ) {
+
+			if ( isset( $oXmlResult->attributes()->method ) && $oXmlResult->attributes()->method == "sidexpired" ) {
 				// problems with the session, re-authenticate
 				$this->sSessionId = null;
 			}
