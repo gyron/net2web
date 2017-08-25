@@ -15,8 +15,8 @@ class Event extends AbstractObject {
 	public function fromXml( \SimpleXMLElement $oXml ) {
 		$this->aData = array(
         	'eventid' => (string)($oXml->EventID),
-			'eventdatetime' => (string)($oXml->EventDateTime),
-			'eventdate' => (string)($oXml->EventDate),
+			'eventdatetime' => (string)($oXml->EventDateTime ?? '' ),
+			'eventdate' => (string)($oXml->EventDate ?? '' ),
 			'eventtime' => (string)($oXml->EventTime),
 			'eventtype' => (string)($oXml->EventType),
 			'eventdescription' => (string)($oXml->EventDescription),
