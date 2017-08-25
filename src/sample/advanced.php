@@ -4,6 +4,7 @@ namespace Gyron\Sample;
 
 use Gyron\Net2Web\Client;
 use Gyron\Net2Web\Encryption;
+use Gyron\Net2Web\PushReceiver;
 use Gyron\Net2Web\Session;
 
 /**
@@ -27,9 +28,24 @@ class AccessApiFactory {
 	/**
 	 * @param array $aConfig requires user_id, password, ip and port
 	 * @return Client
-	 * @throws \Exception
 	 */
-	public function forConfig( array $aConfig ) {
+	public function newClient( array $aConfig ): Client {
+		return ( new Client( $this->session( $aConfig ) ) );
+	}
+
+	/**
+	 * @param array $aConfig requires user_id, password, ip and port
+	 * @return PushReceiver
+	 */
+	public function newPushReceiver( array $aConfig ): PushReceiver {
+		return ( new PushReceiver( $this->session( $aConfig ) ) );
+	}
+
+	/**
+	 * @param array $aConfig
+	 * @return Session
+	 */
+	private function session( array $aConfig ): Session {
 		$sCacheFile = sprintf( '%s/net2web_session.sid', rtrim( $this->sCachePath, '/' ) );
 
 		$sSessionId = null;
@@ -42,6 +58,6 @@ class AccessApiFactory {
 		if ( $sSessionId != $oNet2Session->getSessionId() ) {
 			file_put_contents( $sCacheFile, trim( $oNet2Session->getSessionId() ) );
 		}
-		return ( new Client( $oNet2Session ) );
+		return $oNet2Session;
 	}
 }
