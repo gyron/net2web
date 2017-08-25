@@ -96,7 +96,14 @@ class Encryption {
 	 * @return bool
 	 */
 	public function isMcrypt(): bool {
-		return ( $this->nMethod == self::Mcrypt );
+		return ( $this->nMethod === self::Mcrypt );
+	}
+
+	/**
+	 * @return bool
+	 */
+	public function isOpenSSL(): bool {
+		return ( $this->nMethod === self::OpenSSL );
 	}
 
 	/**
