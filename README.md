@@ -15,14 +15,14 @@ composer require gyron/net2web
 
 Alternatively you can update the `"require": {` section in your `composer.json` with a line reading:
 ```
-"gyron/net2web" : "v1.0.1"
+"gyron/net2web" : "v1.0.2"
 ```
 
 ## Usage
 ### Quick Start
 Simply copy and paste the following code, and adjust the values:
 ```
-$oNet2Encryption = new \Gyron\Net2Web\Encryption( '1234567890123456', \Gyron\Net2Web\Encryption::OpenSSL );
+$oNet2Encryption = new \Gyron\Net2Web\Encryption( 'ENCRYPTION KEY', \Gyron\Net2Web\Encryption::OpenSSL );
 $oNet2Session = new \Gyron\Net2Web\Session( 'USERID', 'PASSWORD', 'NET2 SERVER IP', '7070', $oNet2Encryption );
 $oNet2Client = new \Gyron\Net2Web\Client( $oNet2Session );
 ```
@@ -73,12 +73,12 @@ class AccessApiFactory {
       $sSessionId = trim( file_get_contents( $sCacheFile ) );
     }
         
-    $oNet2Encryption = new Encryption( '1234567890123456', Encryption::OpenSSL );
-    $oNet2Session = new Session( $aConfig['user_id'], $aConfig['password'], $aConfig['ip'], (string)$aConfig['port'], $oNet2Encryption, $sSessionId );
+    $oNet2Encryption = new Encryption( $aConfig['enckey']', Encryption::OpenSSL );
+    $oNet2Session = new Session( $aConfig['user'], $aConfig['password'], $aConfig['host'], (string)$aConfig['port'], $oNet2Encryption, $sSessionId );
     if ( $sSessionId != $oNet2Session->getSessionId() ) {
       file_put_contents( $sCacheFile, trim( $oNet2Session->getSessionId() ) );
     }
-    return ( new Client( oNet2Session ) );
+    return ( new Client( $oNet2Session ) );
   }
 }
 ```

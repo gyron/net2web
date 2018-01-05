@@ -87,10 +87,11 @@ class Client {
 
 	/**
 	 * @param string $sTablename
+	 * @param string $sWhere
 	 * @return array
 	 */
-	public function adminRecordList( string $sTablename ): array {
-		$oXmlQuery = $this->queryDb( sprintf( "SELECT * FROM %s", $sTablename ) );
+	public function adminRecordList( string $sTablename, $sWhere = '' ): array {
+		$oXmlQuery = $this->queryDb( sprintf( "SELECT * FROM %s%s", $sTablename, empty( $sWhere )? '': ' WHERE '.$sWhere ) );
 		$aRecords = [];
 		foreach ( $oXmlQuery->NewDataSet->Table as $oXmlTable ) {
 			$aRecord = [];
@@ -281,19 +282,21 @@ class Client {
 	}
 
 	/**
+	 * Disabled due to author of Net2Web explaining the viewuserrecord is somewhat buggy
 	 * @param int $nUserId
 	 * @return User
 	 */
-	public function viewUserRecord( int $nUserId ): User {
+	private function _viewUserRecord( int $nUserId ): User {
 		$oXmlUser = $this->send( 'viewuserrecords', array( 'sqlwhere' => sprintf( "userid = %s", $nUserId ) ) );
 		return ( new User( $oXmlUser->UsersSet->User ) );
 	}
 
 	/**
+	 * Disabled due to author of Net2Web explaining the viewuserrecord is somewhat buggy
 	 * @param string $sUniqueId
 	 * @return User
 	 */
-	public function viewUserRecordByUniqueId( string $sUniqueId ): User {
+	private function _viewUserRecordByUniqueId( string $sUniqueId ): User {
 		$oXmlUser = $this->send( 'viewuserrecords', array( 'sqlwhere' => sprintf( "field14_50 = '%s'", $sUniqueId ) ) );
 		return ( new User( $oXmlUser->UsersSet->User ) );
 	}
@@ -301,10 +304,51 @@ class Client {
 	/**
 	 * @return User[]
 	 */
-	public function viewUserRecords(): array {
+	private function _viewUserRecords(): array {
 		$oXmlUsers = $this->send( 'viewuserrecords', array( 'sqlwhere' => "active = 'true'" ) );
 		$aUsers = [];
 		foreach ( $oXmlUsers->UsersSet->User as $oXmlUser ) {
+			$aUsers[] = ( new User( $oXmlUser ) );
+		}
+		return $aUsers;
+	}
+
+	/**
+	 * @param int $nUserId
+	 * @return User
+	 */
+	public function viewUserRecord( int $nUserId ) {
+		$oXmlUser = $this->queryDb( sprintf( "SELECT * FROM UsersEx WHERE UserID = '%s'", $nUserId ) );
+		if ( !isset( $oXmlUser->NewDataSet->Table ) ) {
+			throw new \Exception( 'User not found' );
+		}
+		return ( new User( $oXmlUser->NewDataSet->Table[0] ) );
+	}
+
+	/**
+	 * @param string $sUniqueId
+	 * @return User
+	 * @throws \Exception
+	 */
+	public function viewUserRecordByUniqueId( string $sUniqueId ): User {
+		$oXmlUser = $this->queryDb( sprintf( "SELECT * FROM UsersEx WHERE Field14_50 = '%s'", $sUniqueId ) );
+		if ( !isset( $oXmlUser->NewDataSet->Table ) ) {
+			throw new \Exception( 'User not found' );
+		}
+		return ( new User( $oXmlUser->NewDataSet->Table[0] ) );
+	}
+
+	/**
+	 * @return User[]
+	 * @throws \Exception
+	 */
+	public function viewUserRecords(): array {
+		$oXmlUsers = $this->queryDb( "SELECT * FROM UsersEx WHERE Active = 'true'" );
+		if ( !isset( $oXmlUsers->NewDataSet->Table ) ) {
+			throw new \Exception( 'Active users not found' );
+		}
+		$aUsers = [];
+		foreach ( $oXmlUsers->NewDataSet->Table as $oXmlUser ) {
 			$aUsers[] = ( new User( $oXmlUser ) );
 		}
 		return $aUsers;
